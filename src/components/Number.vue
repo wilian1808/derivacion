@@ -2,10 +2,10 @@
     <div class="number">
         <div class="number__content">
 
-            <form class="form" @submit.prevent="getData">
+            <!-- <form class="form" @submit.prevent="getData">
                 <input class="form__text" v-model="url" type="text" name="" id="">
                 <input @click="getData" class="form__button" type="submit" value="consultar">
-            </form>
+            </form> -->
 
             <table class="tabla">
                 <tr class="tabla__tr">
@@ -217,7 +217,7 @@ export default {
 }
 
 .tabla {
-    margin: 0 auto 0;
+    margin: 1em auto 0;
     text-align: center;
 }
 
