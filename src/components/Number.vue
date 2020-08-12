@@ -45,18 +45,21 @@
                 <button class="opciones__button" @click="central">Centrada</button>
             </div>
 
-            <div class="resultado">
-                <div v-show="!progre" class="resultado__pro">
+            <div class="resultado" style="grid-template-columns: repeat(3, 1fr)">
+                <div v-show="progre" class="resultado__pro">
+                    <h4>diferencias finitas progresivas</h4>
                     <p>con dos puntos: {{ proDosPuntos.toFixed(3) }}</p>
                     <p>con tres puntos: {{ proTresPuntos.toFixed(3) }}</p>
                 </div>
 
-                <div v-show="!regre" class="resultado__reg">
+                <div v-show="regre" class="resultado__reg">
+                    <h4>diferencias finitas regresivas</h4>
                     <p>con dos puntos: {{ regDosPuntos.toFixed(3) }}</p>
                     <p>con tres puntos: {{ regTresPuntos.toFixed(3) }}</p>
                 </div>
 
-                <div v-show="!centra" class="resultado__cen">
+                <div v-show="centra" class="resultado__cen">
+                    <h4>diferencias finitas centrales</h4>
                     <p>con dos puntos: {{ cenDosPuntos.toFixed(3) }}</p>
                 </div>
             </div>
@@ -84,7 +87,8 @@ export default {
             progre: false,
             regre: false,
             centra: false,
-            cenDosPuntos: 0
+            cenDosPuntos: 0,
+            contador: 0
         }
     },
     methods: {
@@ -103,7 +107,13 @@ export default {
             // f(X0) = ( -3f(X0) + 4f(X0 + h) - f(X0 + 2h) / 2h )
             this.proTresPuntos = ( (-3 * this.valores[X0]) + (4 * this.valores[X0 + h]) - this.valores[X0 + (2 * h)] ) / (2 * h);
             
-            (!this.progre) ? this.progre = true : this.progre = false
+            if (!this.progre) {
+                this.contador++
+                this.progre = true
+            }  else {
+                this.contador--
+                this.progre = false
+            }
         },
 
         regresiva() {
@@ -118,7 +128,13 @@ export default {
             // f(X0) = (f(X0 - 2h) - 4f(X0 - h) + 3(X0)) / 2h
             this.regTresPuntos = ( this.valores[X0 - (2*h)] - (4 * this.valores[X0 - h]) + (3 * this.valores[X0])) / (2 * h);
             
-            (!this.regre) ? this.regre = true : this.regre = false
+            if (!this.regre) {
+                this.contador++
+                this.regre = true
+            } else {
+                this.contador--
+                this.regre = false
+            }
         },
 
         central() {
@@ -135,7 +151,13 @@ export default {
             // resultado = 3.66641
             // const resultadoTresPuntos = ( valores[X0-(2*h)] - (8*valores[X0-h]) + (8*valores[X0+h]) - valores[X0+(2*h)] ) / (2*h);
 
-            (!this.centra) ? this.centra = true : this.centra = false
+            if (!this.centra) {
+                this.contador++
+                this.centra = true
+            } else {
+                this.contador--
+                this.centra = false
+            }
         }
     },
     created() {
@@ -237,7 +259,7 @@ export default {
 
 .opciones {
     display: grid;
-    margin: 1em auto 0;
+    margin: 2em auto 0;
     grid-template-columns: 90px 90px 90px;
     grid-gap: 1em;
     justify-content: center;
@@ -263,5 +285,36 @@ export default {
 
 .opciones__button:active {
     transform: scale(.96);
+}
+
+.resultado {
+    width: 100%;
+    margin: 1.5em auto 0;
+    display: grid;
+    grid-gap: 2em;
+    margin-bottom: 3em;
+}
+
+.resultado__pro,
+.resultado__reg,
+.resultado__cen {
+    background-color: #eeeeee;
+    width: 100%;
+    display: block;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0px 5px 2px -5px #eeeeee;
+}
+
+.resultado h4 {
+    font-size: 15px;
+    letter-spacing: .7px;
+    padding: .5em;
+    color: #18191a;
+}
+
+.resultado p {
+    padding: .5em;
+    color: #18191a;
 }
 </style>
