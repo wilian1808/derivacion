@@ -17,6 +17,7 @@
                     <th class="tabla__th">6</th>
                     <th class="tabla__th">7</th>
                 </tr>
+
                 <tr class="tabla__tr">
                     <td class="tabla__td">velocidad</td>
                     <td class="tabla__td">6.010</td>
@@ -33,6 +34,7 @@
                     <span class="valores__span">h</span>
                     <input class="valores__text" v-model="h" type="text" name="" id="">
                 </label>
+
                 <label class="valores__label">
                     <span class="valores__span">X0</span>
                     <input class="valores__text" v-model="x0" type="text" name="" id="">
@@ -124,6 +126,7 @@ export default {
             // con 2 puntos
             // f(X0) = (f(X0) - f(X0 - h)) / h
             this.regDosPuntos = ( this.valores[X0] - this.valores[X0 - h] ) / h;
+
             // con 3 puntos
             // f(X0) = (f(X0 - 2h) - 4f(X0 - h) + 3(X0)) / 2h
             this.regTresPuntos = ( this.valores[X0 - (2*h)] - (4 * this.valores[X0 - h]) + (3 * this.valores[X0])) / (2 * h);
@@ -160,6 +163,7 @@ export default {
             }
         }
     },
+    
     created() {
         //this.getData();
     },
